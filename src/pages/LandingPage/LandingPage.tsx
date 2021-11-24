@@ -2,19 +2,18 @@ import React from "react";
 import { Banner, LoginContainer } from "./style";
 
 const LandingPage = () => {
-	return (
-			<LoginContainer>
-				<Banner>
-					Login
-				</Banner>
-				asdasd
-				<div>asdasd</div>
-				<div>asdasd</div>
-				<div>asdasd</div>
-				<div>asdasd</div>
-				<div>asdasd</div>
-			</LoginContainer>
-	)
+  return (
+    <LoginContainer>
+      <Banner>
+        Login
+      </Banner>
+      <input placeholder="Username"></input>
+      <input placeholder="Password"></input>
+      <button>Login</button>
+      <p>Not signed up? Sign up now!</p>
+      <button>Login</button>
+    </LoginContainer>
+  )
 }
 
 export default LandingPage;
