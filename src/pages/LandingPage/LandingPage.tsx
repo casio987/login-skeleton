@@ -41,14 +41,13 @@ const LandingPage = () => {
       >
         Login
       </Button>
-      <p>Not signed up? Sign up now!</p>
       <Button
-        backgroundColor={palette.lightTeal}
-        width="5rem"
+        backgroundColor={palette.rasberry}
+        width="10rem"
         color={palette.white}
         onClick={() => history.push("/signup")}
       >
-        Sign Up
+        New around? Register here!
       </Button>
     </LoginContainer>
   );

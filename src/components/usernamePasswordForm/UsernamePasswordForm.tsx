@@ -9,6 +9,7 @@ type FormProps = {
   handleUsernameChange: (username: string) => void;
   handlePasswordChange: (password: string) => void;
   handleConfirmPasswordChange?: (password: string) => void;
+  // TODO: have handle error change - change border to red and display error message?
 }
 
 const UsernamePasswordForm: FC<FormProps> = ({
@@ -22,6 +23,7 @@ const UsernamePasswordForm: FC<FormProps> = ({
   return (
     <form>
       <InputContainer>
+        {/* TODO: include on focus inputs */}
         <input
           type="text"
           placeholder="username"
