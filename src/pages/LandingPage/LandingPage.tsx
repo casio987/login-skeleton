@@ -1,10 +1,12 @@
 import React, { useCallback, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Button } from "../../components/button/Button";
 import UsernamePasswordForm from "../../components/usernamePasswordForm/UsernamePasswordForm";
 import { palette } from "../../components/Palette";
 import { Banner, LoginContainer } from "./style";
 
 const LandingPage = () => {
+  const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -44,11 +46,12 @@ const LandingPage = () => {
         backgroundColor={palette.lightTeal}
         width="5rem"
         color={palette.white}
+        onClick={() => history.push("/signup")}
       >
         Sign Up
       </Button>
     </LoginContainer>
-  )
-}
+  );
+};
 
 export default LandingPage;
