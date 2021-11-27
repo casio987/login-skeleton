@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { Button } from "../../components/button/Button";
 import UsernamePasswordForm from "../../components/usernamePasswordForm/UsernamePasswordForm";
 import { palette } from "../../components/Palette";
-import { Banner, InputSection, LoginContainer } from "./style";
+import { Banner, LoginContainer } from "./style";
 
 const LandingPage = () => {
   const [username, setUsername] = useState("");
@@ -16,29 +16,26 @@ const LandingPage = () => {
     setPassword(password);
   }, [setPassword]);
 
-  // TODO: will need to handle onsubmit 
-  // const handleSubmit = (e: Event) => {
-  //   e.preventDefault();
-  //   // console.log(`the username is ${username} and the password is ${password}`);
-  // }
+  const handleLoginClick = () => {
+    console.log(`the username is ${username} and the password is ${password}`);
+  }
 
   return (
     <LoginContainer>
       <Banner>
         Login
       </Banner>
-      <InputSection>
-        <UsernamePasswordForm
-          usernameValue={username}
-          passwordValue={password}
-          handleUsernameChange={updateUsername}
-          handlePasswordChange={updatePassword}
-        />
-      </InputSection>
+      <UsernamePasswordForm
+        usernameValue={username}
+        passwordValue={password}
+        handleUsernameChange={updateUsername}
+        handlePasswordChange={updatePassword}
+      />
       <Button
         backgroundColor={palette.lightTeal}
         width="5rem"
         color={palette.white}
+        onClick={handleLoginClick}
       >
         Login
       </Button>

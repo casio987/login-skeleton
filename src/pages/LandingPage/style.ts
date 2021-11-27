@@ -24,12 +24,5 @@ export const Banner = styled.div`
   font-size: 1.5rem;
 `;
 
-export const InputSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 3.125rem;
-`;
-
 
 

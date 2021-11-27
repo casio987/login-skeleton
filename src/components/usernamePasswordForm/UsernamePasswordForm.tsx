@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { InputContainer } from "./style";
 
 type FormProps = {
   // TODO: have additional css props for input?
@@ -17,6 +18,7 @@ const UsernamePasswordForm: FC<FormProps> = ({
 
   return (
     <form>
+      <InputContainer>
         <input
           type="text"
           placeholder="username"
@@ -29,7 +31,7 @@ const UsernamePasswordForm: FC<FormProps> = ({
           value={passwordValue}
           onChange={(e) => handlePasswordChange(e.target.value)}
         />
-        <input type="submit"/>
+      </InputContainer>
     </form>
   );
 };
