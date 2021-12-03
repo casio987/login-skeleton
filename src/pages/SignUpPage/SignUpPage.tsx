@@ -10,6 +10,7 @@ const SignUpPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
+  const [errorOccurred, setErrorOccurred] = useState(false);
 
   const updateUsername = useCallback((username) => {
     setUsername(username);
@@ -26,9 +27,12 @@ const SignUpPage = () => {
   const handleRegisterClick = () => {
     if (password !== confirmedPassword) {
       console.log("incorrect password valid !!!!");
+      setErrorOccurred(true);
     } else {
       console.log("you shall pass");
+      setErrorOccurred(false);
     }
+    // TODO: check if username already exists
   }
 
   return (
@@ -43,6 +47,7 @@ const SignUpPage = () => {
         handleUsernameChange={updateUsername}
         handlePasswordChange={updatePassword}
         handleConfirmPasswordChange={updateConfirmedPassword}
+        confirmPasswordError={errorOccurred}
       />
       <Button
         backgroundColor={palette.lightTeal}

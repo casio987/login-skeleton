@@ -9,6 +9,8 @@ const LandingPage = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [noUserError, setNoUserError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
 
   const updateUsername = useCallback((username) => {
     setUsername(username);
@@ -20,6 +22,10 @@ const LandingPage = () => {
 
   const handleLoginClick = () => {
     console.log(`the username is ${username} and the password is ${password}`);
+    setNoUserError(false);
+    setPasswordError(false);
+    // if name not in db
+    // if password incorrect
   }
 
   return (
@@ -32,6 +38,8 @@ const LandingPage = () => {
         passwordValue={password}
         handleUsernameChange={updateUsername}
         handlePasswordChange={updatePassword}
+        incorrectPasswordError={passwordError}
+        noUserError={noUserError}
       />
       <Button
         backgroundColor={palette.lightTeal}

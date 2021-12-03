@@ -1,15 +1,16 @@
 import React, { FC } from "react";
-import { InputContainer } from "./style";
+import { ErrorText, ErrorTextContainer, Input, InputContainer } from "./style";
 
 type FormProps = {
-  // TODO: have additional css props for input?
   usernameValue: string;
   passwordValue: string;
   confirmPasswordValue?: string;
   handleUsernameChange: (username: string) => void;
   handlePasswordChange: (password: string) => void;
   handleConfirmPasswordChange?: (password: string) => void;
-  // TODO: have handle error change - change border to red and display error message?
+  confirmPasswordError?: boolean;
+  incorrectPasswordError?: boolean;
+  noUserError?: boolean;
 }
 
 const UsernamePasswordForm: FC<FormProps> = ({
@@ -18,32 +19,42 @@ const UsernamePasswordForm: FC<FormProps> = ({
   confirmPasswordValue,
   handleUsernameChange,
   handlePasswordChange,
-  handleConfirmPasswordChange
+  handleConfirmPasswordChange,
+  confirmPasswordError,
+  incorrectPasswordError,
+  noUserError
 }) => {  
   return (
     <form>
       <InputContainer>
         {/* TODO: include on focus inputs */}
-        <input
-          type="text"
+        <Input
           placeholder="username"
           value={usernameValue}
           onChange={(e) => handleUsernameChange(e.target.value)}
+          border={noUserError ? "2px solid red" : ""}
         />
-        <input
-          type="text"
+        <Input
           placeholder="password"
           value={passwordValue}
           onChange={(e) => handlePasswordChange(e.target.value)}
+          border={incorrectPasswordError || confirmPasswordError ? "2px solid red" : ""}
         />
         {confirmPasswordValue !== undefined && handleConfirmPasswordChange ? (
-          <input
-            type="text"
+          <Input
             placeholder="confirm password"
             value={confirmPasswordValue}
             onChange={(e) => handleConfirmPasswordChange(e.target.value)}
-        />
+            border={confirmPasswordError ? "2px solid red" : ""}
+            />
         ): null}
+        {/* TODO: add shake on error animation? */}
+        <ErrorTextContainer>
+          {noUserError || incorrectPasswordError || confirmPasswordError ? (
+            // TODO: add use state to keep track of what error occurrs
+            <ErrorText>some placeholder error text</ErrorText>
+          ): null}
+        </ErrorTextContainer>
       </InputContainer>
     </form>
   );
