@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import { IRegister } from "../interfaces/IRegister";
+import { IUser } from "../interfaces/IUser";
 
-const RegisterSchema = new Schema(
+const UserSchema = new Schema(
   {
     username: {
       type: String,
@@ -15,4 +15,4 @@ const RegisterSchema = new Schema(
   { timestamps: true }
 )
 
-export default model<IRegister>("IRegister", RegisterSchema);
+export default model<IUser>("IUser", UserSchema);

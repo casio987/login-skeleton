@@ -1,7 +1,7 @@
 import cors from "cors";
 import express, { Application } from "express";
 import mongoose from "mongoose";
-import { IRouter } from "./interfaces/IRouter";
+import { IController } from "./interfaces/IController";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -9,12 +9,12 @@ export class App {
   public express: Application;
   public port: number;
 
-  constructor(routes: IRouter[], port: number) {
+  constructor(controllers: IController[], port: number) {
     this.express = express();
     this.port = port;
 
     this.initialiseMiddleware();
-    this.initialiseRoutes(routes);
+    this.initialiseControllers(controllers);
     this.initialiseDatabaseConnection();
     // TODO: will need method of checking if request body is valid - joi package?
     // this.initialiseErrorHandling();
@@ -26,9 +26,10 @@ export class App {
     this.express.use(express.urlencoded({ extended: true }));
   }
 
-  private initialiseRoutes = (routes: IRouter[]) => {
-    routes.forEach((route: IRouter) => {
-      this.express.use("/api", route.router);
+  private initialiseControllers = (controllers: IController[]) => {
+    controllers.forEach((controller: IController) => {
+      // TODO: current 'api' placeholder
+      this.express.use("/api", controller.getRouter());
     });
   }
 
