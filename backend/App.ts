@@ -34,7 +34,7 @@ export class App {
   }
 
   private initialiseDatabaseConnection = () => {
-    mongoose.connect(process.env.MONGO_URI || "", () => {
+    mongoose.connect(process.env.MONGODB_URI || "", () => {
       console.log("DB connected :)");
     });
   }

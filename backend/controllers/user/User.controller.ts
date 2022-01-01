@@ -7,7 +7,7 @@ export class UserController implements IController {
   private router: Router = Router();
 
   constructor() {
-    this.initialiseRoutes;
+    this.initialiseRoutes();
   }
 
   private initialiseRoutes = (): void => {
@@ -32,11 +32,13 @@ export class UserController implements IController {
     res: Response,
     next: NextFunction,
   ) => {
+    // create user from request and save...
     try {
       // add user to db
       console.log(req);
       res.status(201).json();
     } catch (err) {
+      console.log(err);
       next(err);
     }
   }
