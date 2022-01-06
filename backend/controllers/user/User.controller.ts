@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { HTTPError } from "../../components/Errors";
 import { IController } from "../../interfaces/IController";
+import { UserService } from "./User.service";
 
 export class UserController implements IController {
   private path: string = "/users";
   private router: Router = Router();
+  private userService = new UserService();
 
   constructor() {
     this.initialiseRoutes();
@@ -32,14 +34,13 @@ export class UserController implements IController {
     res: Response,
     next: NextFunction,
   ) => {
-    // create user from request and save...
+    const { username, password } = req.body;
     try {
-      // add user to db
-      console.log(req);
-      res.status(201).json();
+      const newUser = await this.userService.register(username, password);
+      res.status(201).json({ newUser });
     } catch (err) {
-      console.log(err);
-      next(err);
+      // console.log(err);
+      return next(err);  
     }
   }
 }
