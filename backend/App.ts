@@ -3,6 +3,7 @@ import express, { Application } from "express";
 import mongoose from "mongoose";
 import { IController } from "./interfaces/IController";
 import dotenv from "dotenv";
+import { ErrorMiddleware } from "./middleware/Error.middleware";
 
 dotenv.config();
 export class App {
@@ -16,8 +17,7 @@ export class App {
     this.initialiseMiddleware();
     this.initialiseControllers(controllers);
     this.initialiseDatabaseConnection();
-    // TODO: will need method of checking if request body is valid - joi package?
-    // this.initialiseErrorHandling();
+    this.initialiseErrorHandling();
   }
 
   private initialiseMiddleware = () => {
@@ -39,9 +39,9 @@ export class App {
     });
   }
 
-  // private initialiseErrorHandling = () => {
-
-  // }
+  private initialiseErrorHandling = () => {
+    this.express.use(ErrorMiddleware);
+  }
 
   public listen = () => {
     this.express.listen(this.port, () => {

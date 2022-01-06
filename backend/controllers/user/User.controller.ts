@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { HTTPError } from "../../components/Errors";
 import { IController } from "../../interfaces/IController";
 import { UserService } from "./User.service";
 
@@ -15,6 +14,7 @@ export class UserController implements IController {
   private initialiseRoutes = (): void => {
     this.router.post(
       `${this.path}/register`,
+      // TODO: will need method of checking if request body is valid - joi package?
       // TODO: insert validation middle ware here :)
       this.register
     );
@@ -39,7 +39,6 @@ export class UserController implements IController {
       const newUser = await this.userService.register(username, password);
       res.status(201).json({ newUser });
     } catch (err) {
-      // console.log(err);
       return next(err);  
     }
   }

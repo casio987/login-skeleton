@@ -1,5 +1,6 @@
 import UserSchema from "../../models/User.model";
 import { IUser } from "../../interfaces/IUser";
+import { HTTPError } from "../../components/Errors";
 
 export class UserService {
   private user = UserSchema;
@@ -12,7 +13,7 @@ export class UserService {
       const user = this.user.create({ username, password });
       return user;
     } catch (err) {
-      throw new Error("Unable to register user");
+      throw new HTTPError(500, "Unable to register user");
     }
   }
 }
