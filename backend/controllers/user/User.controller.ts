@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { IController } from "../../interfaces/IController";
+import { validationMiddleware } from "../../middleware/Validation.middleware";
+import { UserSchema } from "./User.schema";
 import { UserService } from "./User.service";
 
 export class UserController implements IController {
@@ -14,8 +16,7 @@ export class UserController implements IController {
   private initialiseRoutes = (): void => {
     this.router.post(
       `${this.path}/register`,
-      // TODO: will need method of checking if request body is valid - joi package?
-      // TODO: insert validation middle ware here :)
+      validationMiddleware(UserSchema),
       this.register
     );
     // TODO: add login and get user routes?
