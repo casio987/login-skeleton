@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router";
+import { registerUser } from "../../api/users";
 import { Button } from "../../components/button/Button";
 import { palette } from "../../components/Palette";
 import UsernamePasswordForm from "../../components/usernamePasswordForm/UsernamePasswordForm";
@@ -30,6 +31,7 @@ const SignUpPage = () => {
       setErrorOccurred(true);
     } else {
       console.log("you shall pass");
+      registerUser(username, password);
       setErrorOccurred(false);
     }
     // TODO: check if username already exists

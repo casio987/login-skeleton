@@ -6,14 +6,13 @@ export const validationMiddleware = (schema: ObjectSchema) =>
     // TODO: may need additional options such as abortearly, allowunknown, stripunknown, etc...
     const result = schema.validate(req.body);
     const { error } = result;
-
     if (error) {
       console.log("invalid response body");
       res.status(400).json({
         errorCode: 400,
         errorMessage: "Invalid response body",
       });
+      return;
     }
-
     next();
   };
