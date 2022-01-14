@@ -25,13 +25,20 @@ const SignUpPage = () => {
     setConfirmedPassword(password);
   }, [setConfirmedPassword]);
 
-  const handleRegisterClick = () => {
+  const handleRegisterClick = async () => {
     if (password !== confirmedPassword) {
       console.log("incorrect password valid !!!!");
       setErrorOccurred(true);
     } else {
       console.log("you shall pass");
-      registerUser(username, password);
+      const { status } = await registerUser(username, password);
+      
+      if (status === 201) {
+        history.push("/landing");
+        // TODO: token authentication
+      } else {
+        history.push("/error");
+      }
       setErrorOccurred(false);
     }
     // TODO: check if username already exists
