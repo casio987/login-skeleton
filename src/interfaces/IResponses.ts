@@ -1,9 +1,8 @@
 export interface IRegisterResponse {
   status: number;
-  data: any; // TODO: will need to change this type
+  data: IRegisterResponseBody; 
 }
-
-// export interface IRegisterResponseBody {
-//   username: string;
-//   password: string;
-// }
+export interface IRegisterResponseBody {
+  username: string;
+  password: string;
+}

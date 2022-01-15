@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { registerUser } from "../../api/users";
 import { Button } from "../../components/button/Button";
 import { palette } from "../../components/Palette";
@@ -27,15 +27,18 @@ const SignUpPage = () => {
 
   const handleRegisterClick = async () => {
     if (password !== confirmedPassword) {
-      console.log("incorrect password valid !!!!");
       setErrorOccurred(true);
     } else {
       console.log("you shall pass");
-      const { status } = await registerUser(username, password);
+      const { status, data } = await registerUser(username, password);
       
       if (status === 201) {
-        history.push("/landing");
+        console.log(data);
         // TODO: token authentication
+        history.push({
+          pathname: "/landing",
+          state: { data },
+        }); // TODO: should use token instead of actual data
       } else {
         history.push("/error");
       }
