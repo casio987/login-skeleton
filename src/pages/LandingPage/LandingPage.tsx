@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Banner, LandingPageContainer, Text } from "./style";
+import { Button } from "../../components/button/Button";
+import { Navbar, LandingPageContainer } from "./style";
 
 const LandingPage = () => {
   const { location } = useHistory();
@@ -12,12 +13,14 @@ const LandingPage = () => {
 
   return (
     <LandingPageContainer>
-      <Banner>
-        You in...
-      </Banner>
-      <Text>
-        You've signed in with
-      </Text>
+      <Navbar>
+        <Button
+          width="auto"
+          height="auto"
+        >
+          .dropDownAvatar()
+        </Button>
+      </Navbar>
     </LandingPageContainer>
   );
 };

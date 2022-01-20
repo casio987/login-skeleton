@@ -1,8 +1,20 @@
 import React from "react";
+import { Button } from "../../components/button/Button";
+import { ErrorPageContainer } from "./style";
 
 const ErrorPage = () => {
   return (
-    <div>oh noo something went very wrong :(</div>
+    <ErrorPageContainer>    
+      <Button backgroundColor="red">
+        .insertImageHere()
+      </Button>
+      <p>
+        Whoops, something went wrong...
+      </p>
+      <Button backgroundColor="red" color="white">
+        Click here to try again
+      </Button>
+    </ErrorPageContainer>
   );
 };
 

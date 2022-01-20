@@ -13,18 +13,15 @@ export const LandingPageContainer = styled.div`
   }
 `;
 
-export const Banner = styled.div`
+export const Navbar = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   background-color: ${palette.lightTeal};
-  color: white;
   width: 100%;
   height: 5rem;
-  font-size: 1.5rem;
-`;
 
-export const Text = styled.p`
-  font-size: 2.5rem;
-  font-weight: bold;
+  & > * {
+    margin-right: 2.5rem;
+  }
 `;
