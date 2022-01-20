@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
+import { registerUser } from "../../api/users";
 import { Button } from "../../components/button/Button";
 import { palette } from "../../components/Palette";
 import UsernamePasswordForm from "../../components/usernamePasswordForm/UsernamePasswordForm";
@@ -24,12 +25,23 @@ const SignUpPage = () => {
     setConfirmedPassword(password);
   }, [setConfirmedPassword]);
 
-  const handleRegisterClick = () => {
+  const handleRegisterClick = async () => {
     if (password !== confirmedPassword) {
-      console.log("incorrect password valid !!!!");
       setErrorOccurred(true);
     } else {
       console.log("you shall pass");
+      const { status, data } = await registerUser(username, password);
+      
+      if (status === 201) {
+        console.log(data);
+        // TODO: token authentication
+        history.push({
+          pathname: "/landing",
+          state: { data },
+        }); // TODO: should use token instead of actual data
+      } else {
+        history.push("/error");
+      }
       setErrorOccurred(false);
     }
     // TODO: check if username already exists

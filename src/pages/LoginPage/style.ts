@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { palette } from "../../components/Palette";
 
-export const LandingPageContainer = styled.div`
+export const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -24,7 +24,5 @@ export const Banner = styled.div`
   font-size: 1.5rem;
 `;
 
-export const Text = styled.p`
-  font-size: 2.5rem;
-  font-weight: bold;
-`;
+
+
