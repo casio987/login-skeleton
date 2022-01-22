@@ -1,11 +1,10 @@
 import axios from "axios";
-import dotenv from "dotenv";
 import { IRegisterResponse, IRegisterResponseBody } from "../interfaces/IResponses";
 
 export const registerUser = async (username: string, password: string): Promise<IRegisterResponse> => {
-  dotenv.config();
   try {
-    const { status, data } =  await axios.post<IRegisterResponseBody>(`${process.env.REACT_APP_API}/users/register`, {
+    // TODO: manage env (storing api url)
+    const { status, data } =  await axios.post<IRegisterResponseBody>(`http://localhost:3000/api/users/register`, {
       username: username,
       password: password
     });
