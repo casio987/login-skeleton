@@ -1,13 +1,13 @@
 import cors from "cors";
 import express, { Application } from "express";
 import mongoose from "mongoose";
-import { IController } from "./interfaces/IController";
+import { IController } from "./src/interfaces/IController";
 import dotenv from "dotenv";
-import { ErrorMiddleware } from "./middleware/Error.middleware";
+import { ErrorMiddleware } from "./src/middleware/Error.middleware";
 
 dotenv.config();
 export class App {
-  public express: Application;
+public express: Application;
   public port: number;
 
   constructor(controllers: IController[], port: number) {
