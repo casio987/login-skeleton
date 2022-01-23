@@ -34,8 +34,6 @@ const LoginPage = () => {
         Login
       </Banner>
       <UsernamePasswordForm
-        usernameValue={username}
-        passwordValue={password}
         handleUsernameChange={updateUsername}
         handlePasswordChange={updatePassword}
         incorrectPasswordError={passwordError}

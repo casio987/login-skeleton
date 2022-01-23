@@ -53,8 +53,6 @@ const SignUpPage = () => {
         Register
       </Banner>
       <UsernamePasswordForm
-        usernameValue={username}
-        passwordValue={password}
         confirmPasswordValue={confirmedPassword}
         handleUsernameChange={updateUsername}
         handlePasswordChange={updatePassword}

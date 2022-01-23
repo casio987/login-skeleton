@@ -1,9 +1,7 @@
 import React, { FC } from "react";
-import { ErrorText, ErrorTextContainer, Input, InputContainer } from "./style";
+import { InputContainer, Input } from "./style";
 
 type FormProps = {
-  usernameValue: string;
-  passwordValue: string;
   confirmPasswordValue?: string;
   handleUsernameChange: (username: string) => void;
   handlePasswordChange: (password: string) => void;
@@ -14,8 +12,6 @@ type FormProps = {
 }
 
 const UsernamePasswordForm: FC<FormProps> = ({
-  usernameValue,
-  passwordValue,
   confirmPasswordValue,
   handleUsernameChange,
   handlePasswordChange,
@@ -25,38 +21,26 @@ const UsernamePasswordForm: FC<FormProps> = ({
   noUserError
 }) => {  
   return (
-    <form>
-      <InputContainer>
-        {/* TODO: include on focus inputs */}
+    <InputContainer>
         <Input
-          placeholder="username"
-          value={usernameValue}
+          label="username"
           onChange={(e) => handleUsernameChange(e.target.value)}
-          border={noUserError ? "2px solid red" : ""}
+          error={noUserError}
         />
         <Input
-          placeholder="password"
-          value={passwordValue}
+          label="password"
           onChange={(e) => handlePasswordChange(e.target.value)}
-          border={incorrectPasswordError || confirmPasswordError ? "2px solid red" : ""}
+          error={incorrectPasswordError || confirmPasswordError}
         />
-        {confirmPasswordValue !== undefined && handleConfirmPasswordChange ? (
-          <Input
-            placeholder="confirm password"
-            value={confirmPasswordValue}
-            onChange={(e) => handleConfirmPasswordChange(e.target.value)}
-            border={confirmPasswordError ? "2px solid red" : ""}
-            />
-        ): null}
-        {/* TODO: add shake on error animation? */}
-        <ErrorTextContainer>
-          {noUserError || incorrectPasswordError || confirmPasswordError ? (
-            // TODO: add use state to keep track of what error occurrs
-            <ErrorText>some placeholder error text</ErrorText>
-          ): null}
-        </ErrorTextContainer>
-      </InputContainer>
-    </form>
+      {confirmPasswordValue !== undefined && handleConfirmPasswordChange ? (
+        <Input
+          label="confirm password"
+          onChange={(e) => handleConfirmPasswordChange(e.target.value)}
+          error={confirmPasswordError}
+        />
+      ): null}
+      {/* TODO: add shake on error animation? */}
+    </InputContainer>
   );
 };
 
