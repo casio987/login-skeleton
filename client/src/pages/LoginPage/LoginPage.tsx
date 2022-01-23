@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Button } from "../../components/button/Button";
 import UsernamePasswordForm from "../../components/usernamePasswordForm/UsernamePasswordForm";
-import { palette } from "../../components/Palette";
 import { Banner, LoginContainer } from "./style";
+import { Button } from "@mui/material";
 
 const LoginPage = () => {
   const history = useHistory();
@@ -40,17 +39,14 @@ const LoginPage = () => {
         noUserError={noUserError}
       />
       <Button
-        backgroundColor={palette.lightTeal}
-        width="5rem"
-        color={palette.white}
+        variant="contained"
+        size="large"
         onClick={handleLoginClick}
       >
         Login
       </Button>
       <Button
-        backgroundColor={palette.rasberry}
-        width="10rem"
-        color={palette.white}
+        variant="text"
         onClick={() => history.push("/signup")}
       >
         New around? Register here!

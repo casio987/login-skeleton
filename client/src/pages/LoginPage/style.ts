@@ -13,11 +13,12 @@ export const LoginContainer = styled.div`
   }
 `;
 
+// TODO: move to components?
 export const Banner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${palette.lightTeal};
+  background-color: ${palette.indigo};
   color: white;
   width: 100%;
   height: 5rem;
