@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { palette } from "../../components/Palette";
 
 export const SignUpContainer = styled.div`
   display: flex;
@@ -13,16 +12,6 @@ export const SignUpContainer = styled.div`
   }
 `;
 
-export const Banner = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: ${palette.indigo};
-  color: white;
-  width: 100%;
-  height: 5rem;
-  font-size: 1.5rem;
-`;
 
 
 

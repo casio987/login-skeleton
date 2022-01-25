@@ -2,7 +2,8 @@ import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "../../api/users";
 import UsernamePasswordForm from "../../components/usernamePasswordForm/UsernamePasswordForm";
-import { Banner, SignUpContainer } from "./style";
+import { SignUpContainer } from "./style";
+import { Banner } from "../../components/banner/Banner";
 import { Button } from "@mui/material";
 
 const SignUpPage = () => {
