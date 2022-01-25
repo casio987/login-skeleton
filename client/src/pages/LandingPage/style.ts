@@ -17,7 +17,7 @@ export const Navbar = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background-color: ${palette.lightTeal};
+  background-color: ${palette.indigo};
   width: 100%;
   height: 5rem;
 

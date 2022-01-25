@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "../../api/users";
-import { Button } from "../../components/button/Button";
-import { palette } from "../../components/Palette";
 import UsernamePasswordForm from "../../components/usernamePasswordForm/UsernamePasswordForm";
-import { Banner, SignUpContainer } from "./style";
+import { SignUpContainer } from "./style";
+import { Banner } from "../../components/banner/Banner";
+import { Button } from "@mui/material";
 
 const SignUpPage = () => {
   const history = useHistory();
@@ -53,8 +53,6 @@ const SignUpPage = () => {
         Register
       </Banner>
       <UsernamePasswordForm
-        usernameValue={username}
-        passwordValue={password}
         confirmPasswordValue={confirmedPassword}
         handleUsernameChange={updateUsername}
         handlePasswordChange={updatePassword}
@@ -62,17 +60,14 @@ const SignUpPage = () => {
         confirmPasswordError={errorOccurred}
       />
       <Button
-        backgroundColor={palette.lightTeal}
-        width="5rem"
-        color={palette.white}
+        variant="contained"
+        size="large"
         onClick={handleRegisterClick}
       >
         Register
       </Button>
       <Button
-        backgroundColor={palette.rasberry}
-        width="12.5rem"
-        color={palette.white}
+        variant="text"
         onClick={() => history.push("/")}
       >
         Already have an account? Login here!

@@ -3,4 +3,5 @@ export const palette = {
     white: "#FFFFFF",
     rasberry: "#E30B5D",
     red: "#FF0000",
+    indigo: "#0288d1"
 }

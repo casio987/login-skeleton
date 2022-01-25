@@ -1,18 +1,21 @@
 import React from "react";
-import { Button } from "../../components/button/Button";
+import { useHistory } from "react-router-dom";
 import { ErrorPageContainer } from "./style";
+import { Error } from "@mui/icons-material";
+import { Button } from "@mui/material";
 
 const ErrorPage = () => {
+  const history = useHistory();
   return (
-    <ErrorPageContainer>    
-      <Button backgroundColor="red">
-        .insertImageHere()
-      </Button>
-      <p>
-        Whoops, something went wrong...
-      </p>
-      <Button backgroundColor="red" color="white">
-        Click here to try again
+    <ErrorPageContainer>
+      <Error sx={{ fontSize: 100 }} color="error" />
+      <p>Whoops, something went wrong...</p>
+      <Button
+        variant="contained"
+        color="error"
+        onClick={() => history.push("/signup")}
+      >
+        CLICK HERE TO TRY AGAIN
       </Button>
     </ErrorPageContainer>
   );
