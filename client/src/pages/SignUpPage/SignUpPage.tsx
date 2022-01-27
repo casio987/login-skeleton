@@ -29,15 +29,12 @@ const SignUpPage = () => {
     if (password !== confirmedPassword) {
       setErrorOccurred(true);
     } else {
-      console.log("you shall pass");
-      const { status, data } = await registerUser(username, password);
-      
+      const { status, data } = await registerUser(username, password);      
       if (status === 201) {
-        console.log(data);
         // TODO: token authentication
         history.push({
           pathname: "/landing",
-          state: { data },
+          state: data,
         }); // TODO: should use token instead of actual data
       } else {
         history.push("/error");

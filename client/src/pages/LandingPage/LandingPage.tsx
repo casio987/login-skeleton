@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Navbar, LandingPageContainer } from "./style";
 import { AccountCircle, Logout, Settings, Person } from "@mui/icons-material";
 import { Menu, IconButton, MenuItem } from "@mui/material";
+import { IRegisterResponseBody } from "../../interfaces/IResponses";
 
 const LandingPage = () => {
   const history = useHistory();
-  const user = history.location.state;
+  const user = history.location.state as IRegisterResponseBody;
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.log(user);
-  });
 
   const handleMenuOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
@@ -52,6 +49,9 @@ const LandingPage = () => {
           </MenuItem>
         </Menu>
       </Navbar>
+      <div>
+        Welcome {user.username}
+      </div>
     </LandingPageContainer>
   );
 };

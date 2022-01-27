@@ -38,7 +38,10 @@ export class UserController implements IController {
     const { username, password } = req.body;
     try {
       const newUser = await this.userService.register(username, password);
-      res.status(201).json({ newUser });
+      res.status(201).json({
+        username: newUser.username,
+        password: newUser.password
+      });
     } catch (err) {
       return next(err);  
     }
