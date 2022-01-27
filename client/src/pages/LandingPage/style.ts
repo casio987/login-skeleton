@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import { styled } from "@mui/system";
 import { palette } from "../../components/Palette";
 
-export const LandingPageContainer = styled.div`
+export const LandingPageContainer = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -13,7 +13,7 @@ export const LandingPageContainer = styled.div`
   }
 `;
 
-export const Navbar = styled.div`
+export const Navbar = styled('div')`
   display: flex;
   justify-content: flex-end;
   align-items: center;

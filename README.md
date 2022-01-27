@@ -11,5 +11,6 @@ tba
 
 ## TDL/Improvements:
 - implement token authentication
+- encryption
 - dark mode?
 - implement git-hooks/linter/tests

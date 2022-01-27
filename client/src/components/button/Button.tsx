@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "@mui/system";
 
 type ButtonProps = {
     backgroundColor?: string;
@@ -9,7 +9,7 @@ type ButtonProps = {
     border?: string;
 }
 
-export const Button = styled.button<ButtonProps>`
+export const Button = styled('button')<ButtonProps>`
     background-color: ${(props: ButtonProps) => (props.backgroundColor ? props.backgroundColor : "white")};
     color: ${(props: ButtonProps) => (props.color ? props.color : "black")};
     font-size: ${(props: ButtonProps) => (props.fontSize ? props.fontSize : "1rem")};

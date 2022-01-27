@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import { styled } from "@mui/system";
 
-export const LoginContainer = styled.div`
+export const LoginContainer = styled('div')`
   display: flex;
   flex-direction: column;
   justify-content: center;

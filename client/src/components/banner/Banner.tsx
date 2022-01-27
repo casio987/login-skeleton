@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "@mui/system"
 import { palette } from "../../components/Palette";
 
 type BannerProps = {
@@ -8,7 +8,7 @@ type BannerProps = {
   fontSize?: string;
 }
 
-export const Banner = styled.div<BannerProps>`
+export const Banner = styled('div')<BannerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
