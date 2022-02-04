@@ -25,7 +25,7 @@ export class UserService {
       const user = await this.user.findOne({ username: username });
         
       if (!user) {
-        throw new Error("Unable to find user with that username");
+        throw new HTTPError(404, "Unable to find user with that username");
       }
 
       // TODO: validate password using bcrypt instead
@@ -33,9 +33,9 @@ export class UserService {
         // TODO: create token and return instead
         return user;
       } else {
-        throw new Error("Incorrecnt password provided");
+        throw new HTTPError(401, "Incorrect password provided");
       }
-      
+
     } catch (err) {
       throw new HTTPError(500, "Unable to sign in user");
     } 
