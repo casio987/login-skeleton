@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { FormError } from "./formError";
 import { InputContainer, Input } from "./style";
 
 type FormProps = {
@@ -6,9 +7,7 @@ type FormProps = {
   handleUsernameChange: (username: string) => void;
   handlePasswordChange: (password: string) => void;
   handleConfirmPasswordChange?: (password: string) => void;
-  confirmPasswordError?: boolean;
-  incorrectPasswordError?: boolean;
-  noUserError?: boolean;
+  error: FormError | undefined;
 }
 
 const UsernamePasswordForm: FC<FormProps> = ({
@@ -16,30 +15,28 @@ const UsernamePasswordForm: FC<FormProps> = ({
   handleUsernameChange,
   handlePasswordChange,
   handleConfirmPasswordChange,
-  confirmPasswordError,
-  incorrectPasswordError,
-  noUserError
-}) => {  
+  error
+}) => {
   return (
     <InputContainer>
         <Input
           label="username"
           onChange={(e: { target: { value: string; }; }) => handleUsernameChange(e.target.value)}
-          error={noUserError}
-          helperText={noUserError ? "you have entered the wrong username" : null}
+          error={error === "user-not-found"}
+          helperText={error === "user-not-found" ? "the username you entered is not connected to an account" : null}
         />
         <Input
           label="password"
           onChange={(e: { target: { value: string; }; }) => handlePasswordChange(e.target.value)}
-          error={incorrectPasswordError}
-          helperText={incorrectPasswordError ? "incorrect password" : null}
+          error={error === "incorrect-password" || error === "mismatch-passwords"}
+          helperText={error === "incorrect-password" ? "your pass word is incorrect" : null}
         />
       {confirmPasswordValue !== undefined && handleConfirmPasswordChange ? (
         <Input
           label="confirm password"
           onChange={(e: { target: { value: string; }; }) => handleConfirmPasswordChange(e.target.value)}
-          error={confirmPasswordError}
-          helperText={confirmPasswordError ? "passwords do not match" : null}
+          error={error === "mismatch-passwords"}
+          helperText={error === "mismatch-passwords" ? "passwords do not match" : null}
         />
       ): null}
       {/* TODO: add shake on error animation? */}
