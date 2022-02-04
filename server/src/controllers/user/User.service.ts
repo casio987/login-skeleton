@@ -10,10 +10,29 @@ export class UserService {
    */
   public async register(username: string, password: string): Promise<IUser> {
     try {
-      const user = this.user.create({ username, password });
+      const user = await this.user.create({ username, password });
       return user;
     } catch (err) {
       throw new HTTPError(500, "Unable to register user");
     }
+  }
+
+  /**
+   * Logins a user.
+   */
+  public async login(username: string, password: string): Promise<IUser> {
+      const user = await this.user.findOne({ username: username });
+      
+      if (!user) {
+        throw new Error("Unable to find user with that username");
+      }
+
+      // TODO: validate password using bcrypt instead
+      if (user.password === password) {
+        // TODO: create token and return instead
+        return user;
+      } else {
+        throw new Error("Incorrecnt password provided");
+      }
   }
 }

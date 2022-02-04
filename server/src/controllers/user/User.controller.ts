@@ -19,6 +19,11 @@ export class UserController implements IController {
       validationMiddleware(UserSchema),
       this.register
     );
+    this.router.post(
+      `${this.path}/login`,
+      validationMiddleware(UserSchema),
+      this.login
+    )
     // TODO: add login and get user routes?
   }
 
@@ -44,6 +49,24 @@ export class UserController implements IController {
       });
     } catch (err) {
       return next(err);  
+    }
+  }
+
+  private login = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    const { username, password } = req.body;
+    try {
+      // TODO: return token instead
+      const user = await this.userService.login(username, password);
+      res.status(201).json({
+        username: user.username,
+        password: user.password
+      })
+    } catch (err) {
+      return next(err);
     }
   }
 }
