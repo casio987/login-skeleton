@@ -1,5 +1,4 @@
-// TODO: joi depracated by author?
-import Joi from "@hapi/joi";
+import Joi from "joi";
 
 export const SignUpSchema = Joi.object({
   // TODO: can add email option to username?

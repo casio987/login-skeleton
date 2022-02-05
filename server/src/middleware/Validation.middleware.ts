@@ -1,4 +1,4 @@
-import { ObjectSchema } from "@hapi/joi";
+import { ObjectSchema } from "joi";
 import { Request, Response, NextFunction } from "express";
 
 export const validationMiddleware = (schema: ObjectSchema) =>

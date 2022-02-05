@@ -25,7 +25,6 @@ export class UserController implements IController {
       validationMiddleware(LoginSchema),
       this.login
     )
-    // TODO: add login and get user routes?
   }
 
   public getPath = (): string => {
