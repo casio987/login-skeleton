@@ -28,7 +28,6 @@ public express: Application;
 
   private initialiseControllers = (controllers: IController[]) => {
     controllers.forEach((controller: IController) => {
-      // TODO: current 'api' placeholder
       this.express.use("/api", controller.getRouter());
     });
   }

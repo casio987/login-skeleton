@@ -5,13 +5,14 @@ import UsernamePasswordForm from "../../components/usernamePasswordForm/Username
 import { SignUpContainer } from "./style";
 import { Banner } from "../../components/banner/Banner";
 import { Button } from "@mui/material";
+import { FormError } from "../../components/usernamePasswordForm/formError";
 
 const SignUpPage = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
-  const [errorOccurred, setErrorOccurred] = useState(false);
+  const [error, setError] = useState<FormError>();
 
   const updateUsername = useCallback((username) => {
     setUsername(username);
@@ -27,21 +28,25 @@ const SignUpPage = () => {
 
   const handleRegisterClick = async () => {
     if (password !== confirmedPassword) {
-      setErrorOccurred(true);
+      setError("mismatch-passwords");
     } else {
-      const { status, data } = await registerUser(username, password);      
-      if (status === 201) {
-        // TODO: token authentication
-        history.push({
-          pathname: "/landing",
-          state: data,
-        }); // TODO: should use token instead of actual data
-      } else {
-        history.push("/error");
+      try {
+        const { status, data } = await registerUser(username, password);      
+        if (status === 201) {
+          // TODO: token authentication
+          history.push({
+            pathname: "/landing",
+            state: data,
+          }); // TODO: should use token instead of actual data
+        } 
+      } catch (err: any) {
+        if (err.response.status === 400) {
+          setError("user-already-exists");
+        } else {
+          history.push("/error");
+        }
       }
-      setErrorOccurred(false);
     }
-    // TODO: check if username already exists
   }
 
   return (
@@ -54,7 +59,7 @@ const SignUpPage = () => {
         handleUsernameChange={updateUsername}
         handlePasswordChange={updatePassword}
         handleConfirmPasswordChange={updateConfirmedPassword}
-        confirmPasswordError={errorOccurred}
+        error={error}
       />
       <Button
         variant="contained"

@@ -1,4 +1,4 @@
-import { ObjectSchema } from "@hapi/joi";
+import { ObjectSchema } from "joi";
 import { Request, Response, NextFunction } from "express";
 
 export const validationMiddleware = (schema: ObjectSchema) =>
@@ -7,7 +7,6 @@ export const validationMiddleware = (schema: ObjectSchema) =>
     const result = schema.validate(req.body);
     const { error } = result;
     if (error) {
-      console.log("invalid response body");
       res.status(400).json({
         errorCode: 400,
         errorMessage: "Invalid response body",

@@ -4,13 +4,15 @@ import UsernamePasswordForm from "../../components/usernamePasswordForm/Username
 import { LoginContainer } from "./style";
 import { Banner } from "../../components/banner/Banner";
 import { Button } from "@mui/material";
+import { loginUser } from "../../api/users";
+import { FormError } from "../../components/usernamePasswordForm/formError";
+
 
 const LoginPage = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [noUserError, setNoUserError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
+  const [error, setError] = useState<FormError>();
 
   const updateUsername = useCallback((username) => {
     setUsername(username);
@@ -20,13 +22,23 @@ const LoginPage = () => {
     setPassword(password);
   }, [setPassword]);
 
-  const handleLoginClick = () => {
-    console.log(`the username is ${username} and the password is ${password}`);
-    setNoUserError(false);
-    setPasswordError(false);
-    // if name not in db
-    // if password incorrect
-  }
+  const handleLoginClick = async () => {
+    try {
+      const { status, token } = await loginUser(username, password);
+      if (status === 201) {
+        history.push({
+          pathname: "/landing",
+          state: token
+        });
+      }
+    } catch (err: any) {
+      if (err.response.status === 401) {
+        setError("incorrect-password");
+      } else if (err.response.status === 404) {
+        setError("user-not-found");
+      }
+    }
+  };
 
   return (
     <LoginContainer>
@@ -36,8 +48,7 @@ const LoginPage = () => {
       <UsernamePasswordForm
         handleUsernameChange={updateUsername}
         handlePasswordChange={updatePassword}
-        incorrectPasswordError={passwordError}
-        noUserError={noUserError}
+        error={error}
       />
       <Button
         variant="contained"
