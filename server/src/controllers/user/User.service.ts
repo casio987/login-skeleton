@@ -23,11 +23,9 @@ export class UserService {
   public async login(username: string, password: string): Promise<IUser> {
     try {
       const user = await this.user.findOne({ username: username });
-        
       if (!user) {
         throw new HTTPError(404, "Unable to find user with that username");
       }
-
       // TODO: validate password using bcrypt instead
       if (user.password === password) {
         // TODO: create token and return instead
@@ -35,9 +33,8 @@ export class UserService {
       } else {
         throw new HTTPError(401, "Incorrect password provided");
       }
-
-    } catch (err) {
-      throw new HTTPError(500, "Unable to sign in user");
+    } catch (err: any) {
+      throw new HTTPError(err.status, err.message);
     } 
   }
 }

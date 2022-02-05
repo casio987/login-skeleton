@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response, Router } from "express";
+import { HTTPError } from "../../components/Errors";
 import { IController } from "../../interfaces/IController";
 import { validationMiddleware } from "../../middleware/Validation.middleware";
-import { UserSchema } from "./User.schema";
+import { SignUpSchema, LoginSchema } from "./User.schema";
 import { UserService } from "./User.service";
 
 export class UserController implements IController {
@@ -16,12 +17,12 @@ export class UserController implements IController {
   private initialiseRoutes = (): void => {
     this.router.post(
       `${this.path}/register`,
-      validationMiddleware(UserSchema),
+      validationMiddleware(SignUpSchema),
       this.register
     );
     this.router.post(
       `${this.path}/login`,
-      validationMiddleware(UserSchema),
+      validationMiddleware(LoginSchema),
       this.login
     )
     // TODO: add login and get user routes?
@@ -47,8 +48,8 @@ export class UserController implements IController {
         username: newUser.username,
         password: newUser.password
       });
-    } catch (err) {
-      return next(err);  
+    } catch (err: any) {
+      return next(err);
     }
   }
 
@@ -65,7 +66,7 @@ export class UserController implements IController {
         username: user.username,
         password: user.password
       })
-    } catch (err) {
+    } catch (err: any) {
       return next(err);
     }
   }
