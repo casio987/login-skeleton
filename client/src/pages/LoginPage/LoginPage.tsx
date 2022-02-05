@@ -23,18 +23,22 @@ const LoginPage = () => {
   }, [setPassword]);
 
   const handleLoginClick = async () => {
-    const { status, token } = await loginUser(username, password);
-    if (status === 401)  {
-      setError("incorrect-password");
-    } else if (status === 404) {
-      setError("user-not-found");
-    } else if (status === 201) {
-      history.push({
-        pathname: "/landing",
-        state: token
-      });
+    try {
+      const { status, token } = await loginUser(username, password);
+      if (status === 201) {
+        history.push({
+          pathname: "/landing",
+          state: token
+        });
+      }
+    } catch (err: any) {
+      if (err.response.status === 401) {
+        setError("incorrect-password");
+      } else if (err.response.status === 404) {
+        setError("user-not-found");
+      }
     }
-  }
+  };
 
   return (
     <LoginContainer>
