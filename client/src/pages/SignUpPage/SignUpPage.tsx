@@ -30,18 +30,23 @@ const SignUpPage = () => {
     if (password !== confirmedPassword) {
       setError("mismatch-passwords");
     } else {
-      const { status, data } = await registerUser(username, password);      
-      if (status === 201) {
-        // TODO: token authentication
-        history.push({
-          pathname: "/landing",
-          state: data,
-        }); // TODO: should use token instead of actual data
-      } else {
-        history.push("/error");
+      try {
+        const { status, data } = await registerUser(username, password);      
+        if (status === 201) {
+          // TODO: token authentication
+          history.push({
+            pathname: "/landing",
+            state: data,
+          }); // TODO: should use token instead of actual data
+        } 
+      } catch (err: any) {
+        if (err.response.status === 400) {
+          setError("user-already-exists");
+        } else {
+          history.push("/error");
+        }
       }
     }
-    // TODO: check if username already exists
   }
 
   return (

@@ -22,21 +22,23 @@ const UsernamePasswordForm: FC<FormProps> = ({
         <Input
           label="username"
           onChange={(e: { target: { value: string; }; }) => handleUsernameChange(e.target.value)}
-          error={error === "user-not-found"}
-          helperText={error === "user-not-found" ? "the username you entered is not connected to an account" : null}
+          error={error === "user-not-found" || error === "user-already-exists"}
+          helperText={error === "user-not-found" ? "The username you've entered is not connected to an account" : 
+            error === "user-already-exists" ? "A user with that username already exists" : null
+          }
         />
         <Input
           label="password"
           onChange={(e: { target: { value: string; }; }) => handlePasswordChange(e.target.value)}
           error={error === "incorrect-password" || error === "mismatch-passwords"}
-          helperText={error === "incorrect-password" ? "your pass word is incorrect" : null}
+          helperText={error === "incorrect-password" ? "Your password is incorrect" : null}
         />
       {confirmPasswordValue !== undefined && handleConfirmPasswordChange ? (
         <Input
           label="confirm password"
           onChange={(e: { target: { value: string; }; }) => handleConfirmPasswordChange(e.target.value)}
           error={error === "mismatch-passwords"}
-          helperText={error === "mismatch-passwords" ? "passwords do not match" : null}
+          helperText={error === "mismatch-passwords" ? "The passwords do not match" : null}
         />
       ): null}
       {/* TODO: add shake on error animation? */}
