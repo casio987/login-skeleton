@@ -1,7 +1,7 @@
 # login-skeleton
 A simple web-based application, built with the MERN stack that includes features such as:
 1. user registration
-2. user authentication
+2. user authentication/authorisation
 
 ## Installation
 tba
@@ -11,6 +11,6 @@ tba
 
 ## TDL/Improvements:
 - implement token authentication
-- encryption
+- tests
 - dark mode?
 - implement git-hooks/linter/tests
