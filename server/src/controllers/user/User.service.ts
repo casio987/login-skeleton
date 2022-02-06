@@ -1,6 +1,7 @@
 import UserSchema from "../../models/User.model";
 import { IUser } from "../../interfaces/IUser";
 import { HTTPError } from "../../components/Errors";
+import bcrypt from "bcrypt";
 
 export class UserService {
   private user = UserSchema;
@@ -36,9 +37,8 @@ export class UserService {
       if (!user) {
         throw new HTTPError(404, "Unable to find user with that username");
       }
-      // TODO: validate password using bcrypt instead
-      if (user.password === password) {
-        // TODO: create token and return instead
+      
+      if (await bcrypt.compare(password, user.password as string)) {
         return user;
       } else {
         throw new HTTPError(401, "Incorrect password provided");
