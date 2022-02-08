@@ -1,9 +1,12 @@
 import jwt from "jsonwebtoken";
 import { IToken } from "../interfaces/IToken";
 import { IUser } from "../interfaces/IUser";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const generateToken = (user: IUser): string => {
-  const token = jwt.sign("some-user-id", process.env.JWT_SECRET as jwt.Secret, {
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as jwt.Secret, {
     expiresIn: "1m" // TODO: current placeholder
   });
   return token;
