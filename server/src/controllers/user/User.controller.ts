@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { HTTPError } from "../../components/Errors";
 import { IController } from "../../interfaces/IController";
 import { validationMiddleware } from "../../middleware/Validation.middleware";
 import { SignUpSchema, LoginSchema } from "./User.schema";
@@ -42,11 +41,8 @@ export class UserController implements IController {
   ) => {
     const { username, password } = req.body;
     try {
-      const newUser = await this.userService.register(username, password);
-      res.status(201).json({
-        username: newUser.username,
-        password: newUser.password
-      });
+      const token = await this.userService.register(username, password);
+      res.status(201).json({ token });
     } catch (err: any) {
       return next(err);
     }
@@ -59,12 +55,8 @@ export class UserController implements IController {
   ) => {
     const { username, password } = req.body;
     try {
-      // TODO: return token instead
-      const user = await this.userService.login(username, password);
-      res.status(201).json({
-        username: user.username,
-        password: user.password
-      })
+      const token = await this.userService.login(username, password);
+      res.status(201).json({ token })
     } catch (err: any) {
       return next(err);
     }

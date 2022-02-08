@@ -1,6 +1,6 @@
 import UserSchema from "../../models/User.model";
-import { IUser } from "../../interfaces/IUser";
 import { HTTPError } from "../../components/Errors";
+import { generateToken } from "../../utils/token";
 import bcrypt from "bcrypt";
 
 export class UserService {
@@ -9,7 +9,7 @@ export class UserService {
   /**
    * Register a new user.
    */
-  public async register(username: string, password: string): Promise<IUser> {
+  public async register(username: string, password: string): Promise<string> {
     try {
       const user = await this.user.findOne({ username: username });
       if (user) {
@@ -18,7 +18,8 @@ export class UserService {
       } else {
         try {
           const newUser = await this.user.create({ username, password });
-          return newUser;
+          const token = generateToken(newUser);
+          return token;
         } catch (err: any) {
           throw err;
         }
@@ -31,7 +32,7 @@ export class UserService {
   /**
    * Logins a user.
    */
-  public async login(username: string, password: string): Promise<IUser> {
+  public async login(username: string, password: string): Promise<string> {
     try {
       const user = await this.user.findOne({ username: username });
       if (!user) {
@@ -39,7 +40,8 @@ export class UserService {
       }
       
       if (await bcrypt.compare(password, user.password as string)) {
-        return user;
+        const token = generateToken(user);
+        return token;
       } else {
         throw new HTTPError(401, "Incorrect password provided");
       }
