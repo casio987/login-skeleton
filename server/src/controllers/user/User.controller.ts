@@ -50,7 +50,7 @@ export class UserController implements IController {
     const { username, password } = req.body;
     try {
       const token = await this.userService.register(username, password);
-      res.status(201).json({ token });
+      res.status(201).json(token);
     } catch (err: any) {
       return next(err);
     }
@@ -64,7 +64,7 @@ export class UserController implements IController {
     const { username, password } = req.body;
     try {
       const token = await this.userService.login(username, password);
-      res.status(201).json({ token })
+      res.status(201).json(token)
     } catch (err: any) {
       return next(err);
     }
