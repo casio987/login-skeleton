@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Navbar, LandingPageContainer } from "./style";
 import { AccountCircle, Logout, Settings, Person } from "@mui/icons-material";
 import { Menu, IconButton, MenuItem } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 const LandingPage = () => {
+  const history = useHistory();
+  
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
@@ -15,6 +18,11 @@ const LandingPage = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
     setMenuOpen(false);
+  }
+
+  const handleLogout = () => {
+    sessionStorage.setItem(process.env.REACT_APP_TOKEN!, "");
+    history.push("/");
   }
 
   return (
@@ -39,7 +47,7 @@ const LandingPage = () => {
           <MenuItem>
             <Settings sx={{ marginRight: "0.5rem" }} /> Settings 
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={handleLogout}>
             <Logout sx={{ marginRight: "0.5rem" }} /> Logout 
           </MenuItem>
         </Menu>
