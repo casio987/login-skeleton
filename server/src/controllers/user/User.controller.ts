@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
+import { HTTPError } from "../../components/Errors";
 import { IController } from "../../interfaces/IController";
+import { authenticationMiddleware } from "../../middleware/Authentication.middleware";
 import { validationMiddleware } from "../../middleware/Validation.middleware";
 import { SignUpSchema, LoginSchema } from "./User.schema";
 import { UserService } from "./User.service";
@@ -23,16 +25,22 @@ export class UserController implements IController {
       `${this.path}/login`,
       validationMiddleware(LoginSchema),
       this.login
+    );
+    this.router.get(
+      `${this.path}`,
+      authenticationMiddleware,
+      // some authenticated middleware
+      this.getUser
     )
-  }
+  };
 
   public getPath = (): string => {
     return this.path;
-  }
+  };
 
   public getRouter = (): Router => {
     return this.router;
-  }
+  };
 
   private register = async (
     req: Request,
@@ -46,7 +54,7 @@ export class UserController implements IController {
     } catch (err: any) {
       return next(err);
     }
-  }
+  };
 
   private login = async (
     req: Request,
@@ -60,5 +68,18 @@ export class UserController implements IController {
     } catch (err: any) {
       return next(err);
     }
-  }
+  };
+
+
+  // for testing authentication
+  private getUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    if (!req.body) {
+      return next(new HTTPError(401, "Unauthorised user"));
+    }
+    res.status(201).send({ asd: req.body });
+  };
 }
