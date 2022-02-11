@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { Navbar, LandingPageContainer } from "./style";
-import { AccountCircle, Logout, Settings, Person } from "@mui/icons-material";
+import { AccountCircle, Logout, Person } from "@mui/icons-material";
 import { Menu, IconButton, MenuItem } from "@mui/material";
 import { useHistory } from "react-router-dom";
+import { getUser } from "../../api/users";
 
 const LandingPage = () => {
   const history = useHistory();
   
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [username, setUsername] = useState<String>("");
 
   const handleMenuOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
@@ -23,6 +25,18 @@ const LandingPage = () => {
   const handleLogout = () => {
     sessionStorage.setItem(process.env.REACT_APP_TOKEN!, "");
     history.push("/");
+  }
+
+  const handleProfileClick = async () => {
+    try {
+      const { status, userDetails } = await getUser();
+      if (status === 201) {
+        setUsername(userDetails.username);
+      }
+    } catch (err) {
+      sessionStorage.setItem(process.env.REACT_APP_TOKEN!, "");
+      history.push("/");
+    }
   }
 
   return (
@@ -41,20 +55,19 @@ const LandingPage = () => {
           onClose={handleMenuClose}
         >
           {/* TODO: clean this up a bit? and add onclick functionality*/}
-          <MenuItem>
+          <MenuItem onClick={handleProfileClick}>
             <Person sx={{ marginRight: "0.5rem" }} /> Profile 
-          </MenuItem>
-          <MenuItem>
-            <Settings sx={{ marginRight: "0.5rem" }} /> Settings 
           </MenuItem>
           <MenuItem onClick={handleLogout}>
             <Logout sx={{ marginRight: "0.5rem" }} /> Logout 
           </MenuItem>
         </Menu>
       </Navbar>
-      <div>
-        Welcome
-      </div>
+      {!!username ? (
+        <div>
+          Token still valid and username received is {username}
+        </div>
+      ): null}
     </LandingPageContainer>
   );
 };

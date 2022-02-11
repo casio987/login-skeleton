@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ILoginResponse, IRegisterResponse } from "../interfaces/IResponses";
+import { IGetUserResponse, IGetUserResponseBody, ILoginResponse, IRegisterResponse } from "../interfaces/IResponses";
 
 export const registerUser = async (username: string, password: string): Promise<IRegisterResponse> => {
   try {
@@ -13,7 +13,7 @@ export const registerUser = async (username: string, password: string): Promise<
   } catch (err: any) {
     throw err;
   }
-}
+};
 
 export const loginUser = async (username: string, password: string): Promise<ILoginResponse> => {
   try {
@@ -23,6 +23,20 @@ export const loginUser = async (username: string, password: string): Promise<ILo
     });
     sessionStorage.setItem(process.env.REACT_APP_TOKEN!, data);
     return { status, token: data };
+  } catch (err: any) {
+    throw err;
+  }
+};
+
+export const getUser = async (): Promise<IGetUserResponse> => {
+  try {
+    const { status, data } = await axios.get<IGetUserResponseBody>(`${process.env.REACT_APP_API}/users`, { 
+      headers: {
+        "Authorization": `Bearer ${sessionStorage.getItem(process.env.REACT_APP_TOKEN!)}`
+      }
+    });
+
+    return { status, userDetails: data };
   } catch (err: any) {
     throw err;
   }
