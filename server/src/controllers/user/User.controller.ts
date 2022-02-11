@@ -80,6 +80,6 @@ export class UserController implements IController {
     if (!req.body) {
       return next(new HTTPError(401, "Unauthorised user"));
     }
-    res.status(201).send({ asd: req.body });
+    res.status(201).send(req.body);
   };
 }

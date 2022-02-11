@@ -24,10 +24,11 @@ export async function authenticationMiddleware (
       return next(new HTTPError(401, "Unauthorised user"));
     }
 
+    // can extract to service/controller for whatever functionality is needed
     const user = await UserModel.findById(payload.id)
-      .select("-password")
+      .select("username")
       .exec();
-
+    
     if (!user) {
       return next(new HTTPError(401, "User unauthorised"));
     };
