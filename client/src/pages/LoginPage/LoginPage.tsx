@@ -33,6 +33,8 @@ const LoginPage = () => {
         setError("incorrect-password");
       } else if (err.response.status === 404) {
         setError("user-not-found");
+      } else {
+        history.push("/error");
       }
     }
   };
