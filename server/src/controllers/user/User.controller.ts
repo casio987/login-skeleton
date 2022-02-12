@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { HTTPError } from "../../components/Errors";
 import { IController } from "../../interfaces/IController";
+import { authenticationMiddleware } from "../../middleware/Authentication.middleware";
 import { validationMiddleware } from "../../middleware/Validation.middleware";
 import { SignUpSchema, LoginSchema } from "./User.schema";
 import { UserService } from "./User.service";
@@ -24,16 +25,21 @@ export class UserController implements IController {
       `${this.path}/login`,
       validationMiddleware(LoginSchema),
       this.login
+    );
+    this.router.get(
+      `${this.path}`,
+      authenticationMiddleware,
+      this.getUser
     )
-  }
+  };
 
   public getPath = (): string => {
     return this.path;
-  }
+  };
 
   public getRouter = (): Router => {
     return this.router;
-  }
+  };
 
   private register = async (
     req: Request,
@@ -42,15 +48,12 @@ export class UserController implements IController {
   ) => {
     const { username, password } = req.body;
     try {
-      const newUser = await this.userService.register(username, password);
-      res.status(201).json({
-        username: newUser.username,
-        password: newUser.password
-      });
+      const token = await this.userService.register(username, password);
+      res.status(201).json(token);
     } catch (err: any) {
       return next(err);
     }
-  }
+  };
 
   private login = async (
     req: Request,
@@ -59,14 +62,23 @@ export class UserController implements IController {
   ) => {
     const { username, password } = req.body;
     try {
-      // TODO: return token instead
-      const user = await this.userService.login(username, password);
-      res.status(201).json({
-        username: user.username,
-        password: user.password
-      })
+      const token = await this.userService.login(username, password);
+      res.status(201).json(token)
     } catch (err: any) {
       return next(err);
     }
-  }
+  };
+
+
+  // for testing authentication
+  private getUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    if (!req.body) {
+      return next(new HTTPError(401, "Unauthorised user"));
+    }
+    res.status(201).send(req.body);
+  };
 }

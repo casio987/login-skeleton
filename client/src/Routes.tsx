@@ -1,24 +1,51 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect, RouteProps } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 
+interface AuthenticatedRouteProps extends RouteProps {
+  children: React.ReactNode;
+  path: string;
+}
+
+const AuthenticatedRoute = ({ children, ...rest }: AuthenticatedRouteProps) => {
+  const token = sessionStorage.getItem(process.env.REACT_APP_TOKEN!);
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        !!token ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/",
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
+};
+
+
 const Routes = () => (
   <Switch>
       <Route exact path="/">
-          <LoginPage />
+        <LoginPage />
       </Route>
       <Route exact path="/signup">
         <SignUpPage />
       </Route>
-      <Route exact path="/landing">
+      <AuthenticatedRoute exact path="/landing">
         <LandingPage />
-      </Route>
-      <Route exact path="/error">
+      </AuthenticatedRoute>
+      <AuthenticatedRoute exact path="/error">
         <ErrorPage />
-      </Route>
+      </AuthenticatedRoute>
   </Switch>
 );
 

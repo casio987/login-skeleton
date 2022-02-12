@@ -24,12 +24,9 @@ const LoginPage = () => {
 
   const handleLoginClick = async () => {
     try {
-      const { status, token } = await loginUser(username, password);
+      const { status } = await loginUser(username, password);
       if (status === 201) {
-        history.push({
-          pathname: "/landing",
-          state: token
-        });
+        history.push("/landing");
       }
     } catch (err: any) {
       if (err.response.status === 401) {

@@ -31,13 +31,9 @@ const SignUpPage = () => {
       setError("mismatch-passwords");
     } else {
       try {
-        const { status, data } = await registerUser(username, password);      
+        const { status } = await registerUser(username, password);      
         if (status === 201) {
-          // TODO: token authentication
-          history.push({
-            pathname: "/landing",
-            state: data,
-          }); // TODO: should use token instead of actual data
+          history.push("/landing");
         } 
       } catch (err: any) {
         if (err.response.status === 400) {

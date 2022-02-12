@@ -32,6 +32,7 @@ const UsernamePasswordForm: FC<FormProps> = ({
           onChange={(e: { target: { value: string; }; }) => handlePasswordChange(e.target.value)}
           error={error === "incorrect-password" || error === "mismatch-passwords"}
           helperText={error === "incorrect-password" ? "Your password is incorrect" : null}
+          type="password"
         />
       {confirmPasswordValue !== undefined && handleConfirmPasswordChange ? (
         <Input
@@ -39,6 +40,7 @@ const UsernamePasswordForm: FC<FormProps> = ({
           onChange={(e: { target: { value: string; }; }) => handleConfirmPasswordChange(e.target.value)}
           error={error === "mismatch-passwords"}
           helperText={error === "mismatch-passwords" ? "The passwords do not match" : null}
+          type="password"
         />
       ): null}
       {/* TODO: add shake on error animation? */}

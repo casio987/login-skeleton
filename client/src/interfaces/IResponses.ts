@@ -1,13 +1,19 @@
 export interface IRegisterResponse {
   status: number;
-  data: IRegisterResponseBody; 
-}
-export interface IRegisterResponseBody {
-  username: string;
-  password: string;
+  token: string; 
 }
 
 export interface ILoginResponse {
   status: number;
-  token: IRegisterResponseBody // TODO: change to string type
+  token: string;
+}
+
+export interface IGetUserResponse {
+  status: number;
+  userDetails: IGetUserResponseBody;
+}
+
+export interface IGetUserResponseBody {
+  _id: string;
+  username: string;
 }
