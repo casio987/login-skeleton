@@ -29,7 +29,6 @@ export class UserController implements IController {
     this.router.get(
       `${this.path}`,
       authenticationMiddleware,
-      // some authenticated middleware
       this.getUser
     )
   };

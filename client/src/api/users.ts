@@ -3,7 +3,6 @@ import { IGetUserResponse, IGetUserResponseBody, ILoginResponse, IRegisterRespon
 
 export const registerUser = async (username: string, password: string): Promise<IRegisterResponse> => {
   try {
-    // TODO: manage env (storing api url)
     const { status, data } =  await axios.post<string>(`${process.env.REACT_APP_API}/users/register`, {
       username: username,
       password: password
