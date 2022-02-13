@@ -1,5 +1,4 @@
 import { render, fireEvent } from "@testing-library/react";
-import { useHistory } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 
 const mockHistoryPush = jest.fn();
