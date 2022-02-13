@@ -41,11 +41,12 @@ const LandingPage = () => {
 
   return (
     <LandingPageContainer>
-      <Navbar>
+      <Navbar data-testid="landing-page-navbar">
         <IconButton
           onClick={handleMenuOpen}
         >
           <AccountCircle 
+            data-testid="landing-page-account-icon"
             sx={{ fontSize: 50, color: "white"}}
           />
         </IconButton>

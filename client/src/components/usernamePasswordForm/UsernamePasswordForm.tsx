@@ -26,6 +26,7 @@ const UsernamePasswordForm: FC<FormProps> = ({
           helperText={error === "user-not-found" ? "The username you've entered is not connected to an account" : 
             error === "user-already-exists" ? "A user with that username already exists" : null
           }
+          inputProps={{ "data-testid": "username-textfield"  }}
         />
         <Input
           label="password"
@@ -33,6 +34,7 @@ const UsernamePasswordForm: FC<FormProps> = ({
           error={error === "incorrect-password" || error === "mismatch-passwords"}
           helperText={error === "incorrect-password" ? "Your password is incorrect" : null}
           type="password"
+          inputProps={{ "data-testid": "password-textfield"  }}
         />
       {confirmPasswordValue !== undefined && handleConfirmPasswordChange ? (
         <Input
@@ -41,6 +43,7 @@ const UsernamePasswordForm: FC<FormProps> = ({
           error={error === "mismatch-passwords"}
           helperText={error === "mismatch-passwords" ? "The passwords do not match" : null}
           type="password"
+          inputProps={{ "data-testid": "confirm-password-textfield" }}
         />
       ): null}
       {/* TODO: add shake on error animation? */}

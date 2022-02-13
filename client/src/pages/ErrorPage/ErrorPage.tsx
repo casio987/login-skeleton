@@ -13,7 +13,7 @@ const ErrorPage = () => {
       <Button
         variant="contained"
         color="error"
-        onClick={() => history.push("/signup")}
+        onClick={() => history.push("/")}
       >
         CLICK HERE TO TRY AGAIN
       </Button>
